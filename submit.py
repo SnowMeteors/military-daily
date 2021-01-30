@@ -1,8 +1,6 @@
 # coding:utf-8
 
-
 from selenium import webdriver
-from time import sleep
 import datetime
 from calendar import monthrange
 
@@ -13,9 +11,13 @@ MAJOR = "xxxx"  # 专业
 DIVISION = "xxxx"  # 学部
 
 chrome_options = webdriver.ChromeOptions()
+
 # chrome_options.add_argument('--headless')
 # chrome_options.add_argument('--disable-gpu')
-browser = webdriver.Chrome(options=chrome_options)
+
+# 配置chromedriver.exe 路径
+driver_path = "C:\\Users\\Lion\\AppData\\Local\\Programs\\Python\\Python37\\chromedriver.exe"
+browser = webdriver.Chrome(options=chrome_options, executable_path=driver_path)
 browser.maximize_window()  # 全屏
 
 browser.get('http://forms.ebdan.net/ls/ZLtcdcg7?tdsourcetag=s_pcqq_aiomsg')
@@ -43,10 +45,6 @@ def Input(element, attr=None, IsId=True, IsClick=True):
 
 # 提交
 def submit(date):
-    # 打开先让网页加载2s
-    sleep(2)
-    # 跳转到电脑模式
-    # browser.find_element_by_class_name("eqf-pc-l").click()
     # 点击日期按钮
     Input("924328816")
     # 选择打卡日期
@@ -65,7 +63,6 @@ def submit(date):
     Input("2117781682", IsClick=False, attr=NAME)
     # 点击提交
     browser.find_element_by_id("203872787").click()
-    sleep(0.5)
     # 刷新浏览器
     browser.refresh()
 
